@@ -59,8 +59,27 @@ checkSum = (rows) => {
       .map(c => `${c.key} ${c.weight} ${c.sum}`)
   );
 
+  findInbalance(tree);
+
   // Correct answer 256 for tulwp
   return undefined;
+}
+
+findInbalance = (tree) => {
+  if (!tree.children) return;
+
+  const count = {};
+  tree.children.forEach((c, index) => {
+    if (count[c]) {
+      count[c] = false;
+    } else {
+      count[c] = index;
+    }
+  });
+
+  if (Object.keys(count) > 1) {
+    return findInbalance(tree)
+  }
 }
 
 getChildren = (key, elements) => {
